@@ -13,7 +13,7 @@ Widget buildTextField({
     controller: controller,
     style: TextStyle(
       fontSize: type == TextFieldType.MobNo
-          ? 14
+          ? 18
           : isVisible
               ? 13.0
               : 10.0,
@@ -25,7 +25,7 @@ Widget buildTextField({
           : null,
     ),
     decoration: buildInputDecoration(
-      type == TextFieldType.MobNo ? 'Mobile No' : 'Password',
+      type == TextFieldType.MobNo ? 'Mobile Number' : 'Password',
       type == TextFieldType.MobNo ? '9936451487' : '**********',
     ).copyWith(
       suffixIcon: type == TextFieldType.Password
@@ -75,8 +75,8 @@ InputDecoration buildInputDecoration(String labelText, String hintText) {
     border: InputBorder.none,
     labelText: labelText,
     hintText: hintText,
-    labelStyle: TextStyle(fontWeight: FontWeight.bold),
-    hintStyle: TextStyle(color: Colors.grey),
+    labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+    hintStyle: TextStyle(color: Colors.black),
     errorBorder: InputBorder.none,
     focusedErrorBorder: InputBorder.none,
     errorStyle: TextStyle(
