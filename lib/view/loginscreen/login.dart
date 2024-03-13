@@ -29,6 +29,7 @@ class _LoginState extends State<Login> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Container(
@@ -44,14 +45,35 @@ class _LoginState extends State<Login> {
             right: screenHeight * 0.01,
             child: Image.asset(AppImages.grouplogo),
           ),
+          transparentContainer(),
           signInContainer()
         ],
       ),
     );
   }
 
+  Widget transparentContainer() {
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Positioned(
+        top: screenHeight * 0.485,
+        left: 20,
+        right: 20,
+        child: Container(
+          height: 500,
+          decoration: BoxDecoration(
+            color: ColorUtils.greyContainer,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+        ));
+  }
+
   Widget signInContainer() {
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Positioned(
       top: screenHeight * 0.5,
@@ -60,7 +82,7 @@ class _LoginState extends State<Login> {
       child: Container(
         height: 600,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 233, 230, 230),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -68,6 +90,9 @@ class _LoginState extends State<Login> {
         ),
         child: Column(
           children: [
+            SizedBox(
+              height: screenHeight * 0.01,
+            ),
             Center(
                 child: Padding(
               padding: const EdgeInsets.all(18),
@@ -75,78 +100,120 @@ class _LoginState extends State<Login> {
                 children: [
                   Text(
                     "Welcome Back",
-                    style: TextStylesss.welcomeBack,
+                    style: TextStyles.welcomeBack,
                   ),
                   Text(
-                    "Enter your details given below",
-                    style: TextStylesss.smallHeading,
+                    "Enter your details below",
+                    style: TextStyles.smallHeading,
                   ),
                   SizedBox(
-                    height: screenHeight * 0.01,
+                    height: screenHeight * 0.02,
                   ),
-                  Form(
-                    key: _formKey,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: buildTextField(
-                              validator: validateMobileNo,
-                              controller: _mobilenoController,
-                              isVisible: isVisible,
-                              toggleVisibility: (visible) {
-                                setState(() {
-                                  isVisible = visible;
-                                });
-                              },
-                              type: TextFieldType.MobNo,
-                            ),
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: buildTextField(
-                              controller: _passwordController,
-                              isVisible: isVisible,
-                              toggleVisibility: (visible) {
-                                setState(() {
-                                  isVisible = visible;
-                                });
-                              },
-                              validator: validatePassword,
-                              type: TextFieldType.Password,
-                            ),
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.02,
-                          ),
-                          Container(
-                              height: screenHeight * 0.06,
-                              decoration: BoxDecoration(
-                                color: ColorUtils.signIn,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: TextButton(
-                                onPressed: () {},
-                                child: Center(
-                                  child: Text(
-                                    "sign in",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                  SingleChildScrollView(
+                    child: Form(
+                      key: _formKey,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: SingleChildScrollView(
+                                    child: buildTextField(
+                                      validator: validateMobileNo,
+                                      controller: _mobilenoController,
+                                      isVisible: isVisible,
+                                      toggleVisibility: (visible) {
+                                        setState(() {
+                                          isVisible = visible;
+                                        });
+                                      },
+                                      type: TextFieldType.MobNo,
                                     ),
                                   ),
                                 ),
-                              )),
-                        ],
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: buildTextField(
+                                    controller: _passwordController,
+                                    isVisible: isVisible,
+                                    toggleVisibility: (visible) {
+                                      setState(() {
+                                        isVisible = visible;
+                                      });
+                                    },
+                                    validator: validatePassword,
+                                    type: TextFieldType.Password,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              Container(
+                                  height: screenHeight * 0.06,
+                                  decoration: BoxDecoration(
+                                    color: ColorUtils.signIn,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: TextButton(
+                                    onPressed: () {},
+                                    child: Center(
+                                      child: Text("sign in",
+                                          style: TextStyles.signIn),
+                                    ),
+                                  )),
+                              SizedBox(
+                                height: screenHeight * 0.02,
+                              ),
+                              Center(
+                                child: Text("Forgot your password"),
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.03,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Don't have an account?"),
+                                  SizedBox(
+                                    width: screenWidth * 0.02,
+                                  ),
+                                  Container(
+                                    height: screenHeight * 0.035,
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          primary:
+                                              ColorUtils.GetsStartedButton),
+                                      child: Text(
+                                        "Get Started",
+                                        style: TextStyles.signIn,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),

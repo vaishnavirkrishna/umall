@@ -12,11 +12,18 @@ Widget buildTextField({
   return TextFormField(
     controller: controller,
     style: TextStyle(
-        fontSize: type == TextFieldType.MobNo
-            ? 14
-            : isVisible
-                ? 13.0
-                : 10.0),
+      fontSize: type == TextFieldType.MobNo
+          ? 14
+          : isVisible
+              ? 13.0
+              : 10.0,
+      fontWeight: type == TextFieldType.MobNo || type == TextFieldType.Password
+          ? FontWeight.bold
+          : null,
+      color: type == TextFieldType.MobNo || type == TextFieldType.Password
+          ? Colors.black
+          : null,
+    ),
     decoration: buildInputDecoration(
       type == TextFieldType.MobNo ? 'Mobile No' : 'Password',
       type == TextFieldType.MobNo ? '9936451487' : '**********',
@@ -24,8 +31,10 @@ Widget buildTextField({
       suffixIcon: type == TextFieldType.Password
           ? InkWell(
               onTap: () => toggleVisibility(!isVisible),
-              child: Icon(isVisible ? Icons.visibility_off : Icons.visibility,
-                  color: Colors.blue),
+              child: Icon(
+                isVisible ? Icons.visibility_off : Icons.visibility,
+                color: Colors.blue,
+              ),
             )
           : null,
     ),
@@ -63,22 +72,13 @@ String? validatePassword(String? value) {
 
 InputDecoration buildInputDecoration(String labelText, String hintText) {
   return InputDecoration(
+    border: InputBorder.none,
     labelText: labelText,
     hintText: hintText,
     labelStyle: TextStyle(fontWeight: FontWeight.bold),
     hintStyle: TextStyle(color: Colors.grey),
-    enabledBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey),
-    ),
-    focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey),
-    ),
-    errorBorder: UnderlineInputBorder(
-      borderSide: BorderSide(width: 2, color: Colors.red),
-    ),
-    focusedErrorBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.red),
-    ),
+    errorBorder: InputBorder.none,
+    focusedErrorBorder: InputBorder.none,
     errorStyle: TextStyle(
       color: Colors.red,
     ),
