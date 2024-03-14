@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:umall/utils/imageconstant.dart';
-import 'package:umall/view/loginscreen/login.dart';
+import 'package:umall/view/loginscreen/view/login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

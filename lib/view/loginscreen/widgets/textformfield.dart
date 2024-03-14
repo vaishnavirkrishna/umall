@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:umall/utils/imageconstant.dart';
 
 enum TextFieldType { MobNo, Password }
 
@@ -15,7 +17,7 @@ Widget buildTextField({
       fontSize: type == TextFieldType.MobNo
           ? 18
           : isVisible
-              ? 13.0
+              ? 20.0
               : 10.0,
       fontWeight: type == TextFieldType.MobNo || type == TextFieldType.Password
           ? FontWeight.bold
@@ -25,17 +27,16 @@ Widget buildTextField({
           : null,
     ),
     decoration: buildInputDecoration(
-      type == TextFieldType.MobNo ? 'Mobile Number' : 'Password',
-      type == TextFieldType.MobNo ? '9936451487' : '**********',
+      type == TextFieldType.MobNo ? '+91' : '**********',
+
+      // type == TextFieldType.MobNo ? '9936451487' : '**********',
     ).copyWith(
       suffixIcon: type == TextFieldType.Password
           ? InkWell(
               onTap: () => toggleVisibility(!isVisible),
-              child: Icon(
-                isVisible ? Icons.visibility_off : Icons.visibility,
-                color: Colors.blue,
-              ),
-            )
+              child: Image.asset(isVisible
+                  ? AppImages.icon_visible
+                  : AppImages.icon_invisible))
           : null,
     ),
     obscureText: type == TextFieldType.Password && !isVisible,
@@ -70,10 +71,10 @@ String? validatePassword(String? value) {
   return null;
 }
 
-InputDecoration buildInputDecoration(String labelText, String hintText) {
+InputDecoration buildInputDecoration(String hintText) {
   return InputDecoration(
     border: InputBorder.none,
-    labelText: labelText,
+    //labelText: labelText,
     hintText: hintText,
     labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
     hintStyle: TextStyle(color: Colors.black),
